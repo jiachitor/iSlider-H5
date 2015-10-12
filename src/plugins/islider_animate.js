@@ -4,11 +4,11 @@
  */
 
 
-var extendAnimation = {
+let extendAnimation = {
     'rotate': function (dom, axis, scale, i, offset) {
-        var rotateDirect = (axis === 'X') ? 'Y' : 'X';
-        var absoluteOffset = Math.abs(offset);
-        var bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
+        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        let absoluteOffset = Math.abs(offset);
+        let bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
 
         if (this.isVertical) {
             offset = -offset;
@@ -29,8 +29,8 @@ var extendAnimation = {
     },
 
     'flip': function (dom, axis, scale, i, offset) {
-        var rotateDirect = (axis === 'X') ? 'Y' : 'X';
-        var bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
+        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        let bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
         if (this.isVertical) {
             offset = -offset;
         }
@@ -48,7 +48,7 @@ var extendAnimation = {
     },
 
     'depth': function (dom, axis, scale, i, offset) {
-        var zoomScale = (4 - Math.abs(i - 1)) * 0.18;
+        let zoomScale = (4 - Math.abs(i - 1)) * 0.18;
         this.wrap.style.webkitPerspective = scale * 4;
         dom.style.zIndex = (i === 1) ? 100 : (offset > 0) ? (1 - i) : (i - 1);
         dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate'
@@ -56,10 +56,10 @@ var extendAnimation = {
     },
 
     'flow': function (dom, axis, scale, i, offset) {
-        var absoluteOffset = Math.abs(offset);
-        var rotateDirect = (axis === 'X') ? 'Y' : 'X';
-        var directAmend = (axis === 'X') ? 1 : -1;
-        var offsetRatio = Math.abs(offset / scale);
+        let absoluteOffset = Math.abs(offset);
+        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        let directAmend = (axis === 'X') ? 1 : -1;
+        let offsetRatio = Math.abs(offset / scale);
 
         this.wrap.style.webkitPerspective = scale * 4;
 
@@ -75,7 +75,7 @@ var extendAnimation = {
     },
 
     'card': function (dom, axis, scale, i, offset) {
-        var absoluteOffset = Math.abs(offset);
+        let absoluteOffset = Math.abs(offset);
 
         if (i === 1) {
             dom.style.zIndex = scale - absoluteOffset;
@@ -90,7 +90,7 @@ var extendAnimation = {
             }, 300);
         }
 
-        var zoomScale = (dom.cur) ? 1 - 0.2 * Math.abs(i - 1) - Math.abs(0.2 * offset / scale).toFixed(6) : 1;
+        let zoomScale = (dom.cur) ? 1 - 0.2 * Math.abs(i - 1) - Math.abs(0.2 * offset / scale).toFixed(6) : 1;
         dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis
             + '(' + ((1 + Math.abs(i - 1) * 0.2) * offset + scale * (i - 1)) + 'px)';
     }

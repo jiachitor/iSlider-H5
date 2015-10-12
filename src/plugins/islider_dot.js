@@ -3,15 +3,15 @@
  * @author xieyu33333
  */
 
-function AddDot() {
+function addDot() {
     if (!this.isVertical) {
-        var self = this;
-        var data = this.data;
-        var dots = [];
-        var dotWrap = document.createElement('ul');
+        let self = this;
+        let data = this.data;
+        let dots = [];
+        let dotWrap = document.createElement('ul');
         dotWrap.className = 'islider-dot-wrap';
-        var fregment = document.createDocumentFragment();
-        for (var i = 0; i < data.length; i++) {
+        let fregment = document.createDocumentFragment();
+        for (let i = 0; i < data.length; i++) {
             dots[i] = document.createElement('li');
             dots[i].className = 'islider-dot';
             dots[i].setAttribute('index', i);
@@ -19,7 +19,7 @@ function AddDot() {
                 dots[i].className += ' active';
             }
             dots[i].addEventListener('click', function () {
-                var index = parseInt(this.getAttribute('index'), 10);
+                let index = parseInt(this.getAttribute('index'), 10);
                 self.slideTo(index);
             });
             fregment.appendChild(dots[i]);
@@ -28,7 +28,7 @@ function AddDot() {
         this.wrap.parentNode.appendChild(dotWrap);
 
         this.dotchange = function () {
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 dots[i].className = 'islider-dot';
                 if (i === this.slideIndex) {
                     dots[i].className += ' active';
@@ -38,4 +38,4 @@ function AddDot() {
     }
 }
 
-module.exports = AddDot;
+module.exports = {addDot};

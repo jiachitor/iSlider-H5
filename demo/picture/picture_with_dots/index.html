@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
-	<link href="../public/css/islider.css" rel="stylesheet">
+	<link href="../../public/css/islider.css" rel="stylesheet">
 	<style>
 		body {
 			margin: 0;
@@ -48,29 +48,6 @@
 <body>
 	<!-- Outer Canvas 外层画布 -->
 	<div id="iSlider-wrapper"></div>
-	<script src="../public/js/islider.js"></script>
-	<script>
-		var list = [
-			{content: "./imgs/long/1.jpg"},
-			{content: "./imgs/long/2.jpg"},
-			{content: "./imgs/long/3.jpg"},
-			{content: "./imgs/long/4.jpg"},
-			{content: "./imgs/long/5.jpg"},
-			{content: "./imgs/long/6.jpg"},
-			{content: "./imgs/long/7.jpg"},
-			{content: "./imgs/long/8.jpg"},
-			{content: "./imgs/long/9.jpg"},
-			];
-		
-		var opts = {
-			type: 'pic',
-		    data: list,
-		    dom: document.getElementById("iSlider-wrapper"),
-		    isLooping: true,
-		};
-		var	islider = new iSlider(opts);
-		islider.addDot();
-
-	</script>
+	<script src="./bundle.js"></script>
 </body>
 </html>

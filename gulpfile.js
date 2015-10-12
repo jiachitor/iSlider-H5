@@ -1,3 +1,4 @@
+var fs = require("fs");
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -14,10 +15,12 @@ var notify = require('gulp-notify');
 var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 
+var demo_config = ['dom/default','dom/demo_with_navigator','dom/slide_with_btn','dom/vertical_slide','picture/default','picture/picture_with_button','picture/picture_with_dots','picture/zoom','picture/card'];
+
 var b = watchify(browserify(assign({}, watchify.args, {
     cache: {}, // required for watchify
     packageCache: {}, // required for watchify
-    entries: ['./src/islider_core.js'],
+    entries: ['./src/islider.js'],
     debug: true
 })));
 
@@ -35,7 +38,7 @@ function bundle() {
         .pipe(source('islider.js'))
         // optional, remove if you don't need to buffer file contents
         .pipe(buffer())
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest('./build'));
 }
 
@@ -47,29 +50,49 @@ function browserSyncTask(callback) {
         }
     });
     callback();
-};
+}
 
 function sassTask() {
     // Serve files from the root of this project
     gulp.src(['src/*.scss'])
         .pipe(sass())
+        .on('error', gutil.log) // ‘⁄’‚¿Ô≤∂◊Ω±‡“Î¥ÌŒÛ
         .pipe(rename('islider.css'))
         .pipe(minifycss())
         .pipe(gulp.dest('build'))
         .pipe(gulp.dest('demo/public/css'))
         .pipe(notify('islider.css to build complete'));
-};
+}
+
+
+function browserifyTask(){
+    for (var conf of demo_config) {
+        browserifyJsFn(conf);
+    }
+}
+
+function browserifyJsFn(conf){
+    browserify("./demo/"+ conf +"/main.js", { debug: true })
+        .transform(babelify)
+        .bundle()
+        .on("error", function (err) { console.log("Error : " + err.message); })
+        .pipe(fs.createWriteStream("./demo/"+ conf +"/bundle.js"));
+}
 
 function watchTask() {
+    gulp.watch(['demo/*/*/main.js'], function () {
+        browserifyTask();
+    });
+
     gulp.watch(['src/*.scss'], function () {
         sassTask();
     });
-};
+}
 
 gulp.task('watch', gulp.series(
     'browserifyTask',
     browserSyncTask,
-    gulp.parallel(sassTask,watchTask)
+    gulp.parallel(sassTask,watchTask,browserifyTask)
 ));
 
 

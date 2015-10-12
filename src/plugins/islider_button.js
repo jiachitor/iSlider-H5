@@ -3,12 +3,12 @@
  * @author xieyu33333
  */
 
-function AddBtn() {
+function addBtn() {
     if (!this.isVertical) {
-        var btnOuter = [];
-        var btnInner = [];
-        var self = this;
-        for (var i = 0; i < 2; i++) {
+        let btnOuter = [];
+        let btnInner = [];
+        let self = this;
+        for (let i = 0; i < 2; i++) {
             btnOuter[i] = document.createElement('div');
             btnOuter[i].className = 'islider-btn-outer';
             btnInner[i] = document.createElement('div');
@@ -23,7 +23,7 @@ function AddBtn() {
             }
 
             btnOuter[i].addEventListener('click', function () {
-                var dir = parseInt(this.getAttribute('dir'), 10);
+                let dir = parseInt(this.getAttribute('dir'), 10);
                 self.slideTo(self.slideIndex + dir);
             });
 
@@ -33,4 +33,4 @@ function AddBtn() {
     }
 }
 
-module.exports = AddBtn;
+module.exports = {addBtn};

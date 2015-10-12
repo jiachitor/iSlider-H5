@@ -16,14 +16,11 @@
  */
 'use strict';
 
-import Animation from './plugins/islider_animate.js';
-import Button from './plugins/islider_button.js';
-import Dot from './plugins/islider_dot.js';
 import Zoom from './plugins/islider_zoom.js';
 
-class iSlider {
+class iSliderCore {
     //ES6中新型构造器
-    constructor() {
+    constructor(opts) {
         if (!opts.dom) {
             throw new Error('dom element can not be empty!');
         }
@@ -31,6 +28,8 @@ class iSlider {
         if (!opts.data || !opts.data.length) {
             throw new Error('data must be an array and must have more than one element!');
         }
+
+        this.extend(Zoom, this);
 
         this._opts = opts;
         this._setting();
@@ -722,7 +721,7 @@ class iSlider {
      */
     extend (plugin, main) {
         if (!main) {
-            main = iSlider;
+            main = this;
         }
         Object.keys(plugin).forEach(function (property) {
             Object.defineProperty(main, property, Object.getOwnPropertyDescriptor(plugin, property));
@@ -731,9 +730,4 @@ class iSlider {
 
 }
 
-iSlider.extend(Animation, iSlider._animateFuncs);
-iSlider.extend(Button);
-iSlider.extend(Dot);
-iSlider.extend(Zoom);
-
-module.exports = iSlider;
+module.exports = iSliderCore;
