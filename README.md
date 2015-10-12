@@ -13,7 +13,11 @@ gulp watch
 
 ##Getting Started
 ````
-gulp watch
+import iSlider from 'islider-h5'; 
+````
+or
+````
+var iSlider = require('islider-h5'); 
 ````
 
 ##License (MIT)
