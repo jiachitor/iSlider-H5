@@ -16,6 +16,7 @@
  */
 'use strict';
 
+import Animation from './plugins/islider_animate.js';
 import Zoom from './plugins/islider_zoom.js';
 
 class iSliderCore {
@@ -137,6 +138,8 @@ class iSliderCore {
                 dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
             }
         };
+
+        this.extend(Animation, this._animateFuncs);
 
         // set animate Function
         this._animateFunc = (opts.animateType in this._animateFuncs)

@@ -16,9 +16,12 @@ let opts = {
     type: 'pic',
     data: list,
     dom: document.getElementById("iSlider-wrapper"),
+    animateType: 'rotate',
     isLooping: true,
 };
+
 let	islider = new iSlider(opts);
+
 islider.addDot();
 
 

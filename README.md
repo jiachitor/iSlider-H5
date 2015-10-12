@@ -20,5 +20,9 @@ or
 var iSlider = require('islider-h5'); 
 ````
 
+##翻页效果
+目前的翻页效果为"default","rotate","flip","depth","flow","card"
+
+
 ##License (MIT)
 

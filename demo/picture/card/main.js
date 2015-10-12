@@ -16,7 +16,7 @@ let	islider = new iSlider({
     dom: document.getElementById("iSlider-wrapper"),
     isVertical: true,
     isLooping: true,
-    animateType: 'flip',
+    animateType: 'rotate',
     onslidechange: function(idx) {
 
         if (this.isLooping === false) {
