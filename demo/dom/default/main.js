@@ -1,8 +1,8 @@
 import iSlider from '../../../src/islider.js';
 
 let list = [{
-    'content': '<a href="http://www.baidu.com"><div class="content page0"><h1>Home</h1><h2>This is home page</h2><p>home is pretty awsome</p><div></a><div><input type="text"><input type="checkbox"></div>'
-    },
+    'content': '<a href="http://www.baidu.com"><div class="content home"><h1>Home</h1><h2>This is home page</h2><p>home is pretty awsome</p><div></a><div><input type="text"><input type="checkbox"></div>'
+},
     {
         'content': '<div class="content page1"><h1>Page1</h1><h2>This is page1</h2><p>page1 is pretty awsome</p><div>'
     },
@@ -18,17 +18,15 @@ let list = [{
     {
         'content': '<div class="content page5"><h1>Page5</h1><h2>This is page5</h2><p>page5 is pretty awsome</p><div>'
     }];
-
 let islider = new iSlider({
     data: list,
-    type: 'dom',
-    dom: document.getElementById("iSlider"),
+    dom: document.getElementById("iSlider-wrap"),
     duration: 1000,
-    isVertical: false,
-    animateType: 'rotate',
     isLooping: true,
     isAutoPlay: true,
-    fixPage: true
+    fixPage: true,
+    isDebug: true,
+    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
 });
 
 

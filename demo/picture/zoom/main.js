@@ -18,7 +18,8 @@ let islider = new iSlider({
     dom: document.getElementById("iSlider-wrapper"),
     isLooping: true,
     animateType: 'default',
-    useZoom: true
+    useZoom: true,
+    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
 });
 
 

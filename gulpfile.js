@@ -15,7 +15,7 @@ var notify = require('gulp-notify');
 var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 
-var demo_config = ['dom/example','dom/default','dom/demo_with_navigator','dom/slide_with_btn','dom/vertical_slide','picture/default','picture/picture_with_button','picture/picture_with_dots','picture/zoom','picture/card','effect/yunrankuosan'];
+var demo_config = ['dom/example','dom/default','dom/default2','dom/demo_with_navigator','dom/slide_with_btn','dom/vertical_slide','dom/with-plugins-dot-button','dom/with-plugin-zoom','picture/default','picture/picture_with_button','picture/picture_with_dots','picture/zoom','picture/card','effect/yunrankuosan','effect/flip'];
 
 var b = watchify(browserify(assign({}, watchify.args, {
     cache: {}, // required for watchify

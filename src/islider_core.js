@@ -208,8 +208,6 @@ class iSliderCore {
      * @public
      */
     regPlugin(name, plugin) {
-        console.log(name)
-        console.log(plugin)
         this.plugins[name] = this.plugins[name] || plugin;
     }
 
@@ -447,7 +445,7 @@ class iSliderPrototype extends iSliderCore {
             }
         };
 
-        this.extend(Animation, this._animateFuncs);
+        this.extend(this._animateFuncs, Animation);
 
         /**
          * @protected

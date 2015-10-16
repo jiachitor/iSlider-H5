@@ -17,7 +17,8 @@ let islider = new iSlider({
     data: list,
     dom: document.getElementById("iSlider-wrapper"),
     isLooping: true,
-    animateType: 'default'
+    animateType: 'default',
+    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
 });
 
 

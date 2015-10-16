@@ -15,8 +15,6 @@ class iSlider extends iSliderCore {
         var endHandlerOriginal = this.endHandler;
         var moveHandlerOriginal = this.moveHandler;
 
-        //console.log(Button)
-        //console.log(this.regPlugin)
         this.regPlugin('button',Button);
         this.regPlugin('dot',Dot);
         this.regPlugin('zoompic', function(zoomOpts){

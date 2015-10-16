@@ -10,14 +10,15 @@ let list = [
     {content: "../imgs/card/7.jpg"},
     {content: "../imgs/card/8.jpg"}];
 
-let	islider = new iSlider({
+var islider = new iSlider({
     type: 'pic',
     data: list,
     dom: document.getElementById("iSlider-wrapper"),
     isVertical: true,
     isLooping: true,
-    animateType: 'rotate',
-    onslidechange: function(idx) {
+    animateType: 'card',
+    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
+    onslidechange: function (idx) {
 
         if (this.isLooping === false) {
             if (idx === this.data.length - 1) {
@@ -30,11 +31,11 @@ let	islider = new iSlider({
     }
 });
 
-let audio = document.getElementById('autoplay');
-let controller = document.getElementById('musicBtn');
-let controllerHint = document.getElementById('musicBtnTxt');
+var audio = document.getElementById('autoplay');
+var controller = document.getElementById('musicBtn');
+var controllerHint = document.getElementById('musicBtnTxt');
 
-document.getElementById('musicBtn').addEventListener('touchstart', function() {
+document.getElementById('musicBtn').addEventListener('touchstart', function () {
 
     controllerHint.style.display = '';
     if (audio.paused) {
@@ -47,7 +48,7 @@ document.getElementById('musicBtn').addEventListener('touchstart', function() {
         controllerHint.innerHTML = '¹Ø±Õ';
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
         controllerHint.style.display = 'none';
     }, 1000);
 

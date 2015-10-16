@@ -16,10 +16,9 @@ let	islider = new iSlider({
     type: 'pic',
     data: list,
     dom: document.getElementById("iSlider-wrapper"),
-    isLooping: true
+    isLooping: true,
+    plugins: ['button', ['zoompic', {currentScale:1,zoomFactor: 2}]],
 });
-
-islider.addBtn();
 
 
 

@@ -18,11 +18,10 @@ let opts = {
     dom: document.getElementById("iSlider-wrapper"),
     animateType: 'rotate',
     isLooping: true,
+    plugins: ['dot',['zoompic', {currentScale:1,zoomFactor: 2}]],
 };
 
 let	islider = new iSlider(opts);
-
-islider.addDot();
 
 
 
