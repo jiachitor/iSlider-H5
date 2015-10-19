@@ -3,6 +3,13 @@
  * @author xieyu33333
  */
 
+/*  说明：
+//dom 表示动画的元素节点
+//axis 表示动画方向，分别为 X 和 Y 方向
+//scale 屏幕高度
+//i == 0 表示 islider-prev, i == 1 表示 islider-active, i == 2 表示 islider-next,
+//offset > 0 表示的是向上或向右的滑动方向，offset < 0 表示的是向下或向左的滑动方向.offset 的值表示手指在屏幕上滑动的距离，绝对值越大表示滑动的距离越长。
+* */
 
 let extendAnimation = {
     'rotate': function (dom, axis, scale, i, offset) {
@@ -108,6 +115,32 @@ let extendAnimation = {
         } else {
             dom.style.opacity = offset / scale;
         }
+    },
+
+    //晕染扩散
+    'yrks': function fade(dom, axis, scale, i, offset) {
+        dom.cur = 2;
+
+        if (offset > 0) {
+            dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
+            if (i === 1) {
+                dom.cur = 1;
+                dom.style.opacity = 1 - (offset / scale);
+            } else {
+                dom.style.opacity = offset / scale;
+            }
+        } else {
+            dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
+            if (i === 1) {
+                dom.cur = 1;
+                dom.style.opacity = 1 + (offset / scale);
+            } else {
+                dom.style.opacity = - offset / scale;
+            }
+        }
+
+        let zoomScale = (dom.cur === 1) ? 1 : 2;
+        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0)';
     }
 };
 
