@@ -251,6 +251,9 @@ class iSliderPrototype extends iSliderCore {
      */
     _setting() {
 
+        // 是否逆向执行
+        this.opposite = false;
+
         /**
          * The plugins
          * @type {Array|{}|*}
@@ -1041,9 +1044,11 @@ class iSliderPrototype extends iSliderCore {
         this.log(boundary, offset[axis], absOffset, absReverseOffset, this);
 
         if (offset[axis] >= boundary && absReverseOffset < absOffset) {
+            this.opposite = true;
             this.slideTo(this.slideIndex - 1);
         }
         else if (offset[axis] < -boundary && absReverseOffset < absOffset) {
+            this.opposite = false;
             this.slideTo(this.slideIndex + 1);
         }
         else {
@@ -1144,7 +1149,6 @@ class iSliderPrototype extends iSliderCore {
                 this.slideIndex = n > 0 ? 0 : data.length - 1;
             }
             else {
-                this.slideIndex = this.slideIndex;
                 n = 0;
             }
         }
@@ -1154,6 +1158,7 @@ class iSliderPrototype extends iSliderCore {
         // keep the right order of items
         let headEl, tailEl, step;
 
+
         // slidechange should render new item
         // and change new item style to fit animation
         if (n === 0) {
@@ -1161,7 +1166,8 @@ class iSliderPrototype extends iSliderCore {
             eventType = 'slideRestore';
         } else {
 
-            if ((this.isVertical && (animateType === 'rotate' || animateType === 'flip')) ^ (n > 0)) {
+            //这一这里的代码，与动画效果挂钩
+            if ((this.isVertical && (animateType === 'rotate' || animateType === 'flip') || animateType === 'kpfy') ^ (n > 0)) {
                 els.push(els.shift());
                 headEl = els[2];
                 tailEl = els[0];
@@ -1203,7 +1209,11 @@ class iSliderPrototype extends iSliderCore {
             if (els[i] !== headEl) {
                 els[i].style.webkitTransition = 'all ' + (squeezeTime / 1000) + 's ' + this.animateEasing;
             }
-            animateFunc.call(this, els[i], this.axis, this.scale, i, 0);
+            if(this.opposite){
+                animateFunc.call(this, els[i], this.axis, this.scale, i, 0, true);
+            }else{
+                animateFunc.call(this, els[i], this.axis, this.scale, i, 0, false);
+            }
         }
 
         // If not looping, stop playing when meet the end of data
