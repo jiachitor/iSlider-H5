@@ -299,10 +299,10 @@ let extendAnimation = {
                 reverse();
                 if(i == 1){
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
-                }else if(i > 1){
-                    dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
-                }else{
+                }else if(i < 1){
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
+                }else{
+                    dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
                 }
             }else{
                 forward();
@@ -341,27 +341,25 @@ let extendAnimation = {
 
     //卡片翻页
     'kpfy': function (dom, axis, scale, i, offset, opposite) {
-        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
         let absoluteOffset = Math.abs(offset);
-
-        if (this.isVertical) {
-            offset = -offset;
-        }
+        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
 
         this.wrap.style.webkitPerspective = scale * 4;
 
         //正向
-        function forward(){
+        function forward(){ console.log(1)
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.style.zIndex = scale - absoluteOffset;
             } else {
                 dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
             }
+            dom.style.cssText += '-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d; '
+                + ' position:absolute;-webkit-transform-origin: 50% bottom 0px;';
         }
 
         //反向
-        function reverse(){
+        function reverse(){  console.log(2)
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
             if (i === 1) {//正要被显示的页面
                 dom.style.zIndex = scale - absoluteOffset;
@@ -369,31 +367,96 @@ let extendAnimation = {
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
             }
+            dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
+                + ' position:absolute;-webkit-transform-origin: 50% top 0px;';
         }
-
-
 
         if (offset > 0) {
             reverse();
+            if(i < 1){
+                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+            }
         }else {
             if(opposite){
                 reverse();
+                if(i == 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }else if(i < 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+                }else{
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }
             }else{
                 forward();
-                dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
-                    + ' position:absolute;-webkit-transform-origin: 50% buttom 0px;';
                 if(i == 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + (90 * (offset / scale + i - 1)) + 'deg) translateZ('+ (0.888 * scale / 2) + 'px) scale(0.888)';
-                }else if(i > 1){
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }else if(i > 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
                 }else{
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }
             }
         }
+    },
 
+    //交换翻页
+    'jhfy': function (dom, axis, scale, i, offset, opposite) {
+        let absoluteOffset = Math.abs(offset);
+        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
 
-        //dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + 90 * (offset / scale + i - 1) + 'deg) translateZ('+ (0.888 * scale / 2) + 'px) scale(0.888)';
+        this.wrap.style.webkitPerspective = scale * 4;
+
+        //正向
+        function forward(){ console.log(1)
+            dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
+            if (i === 1) {
+                dom.style.zIndex = scale - absoluteOffset;
+            } else {
+                dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
+            }
+            dom.style.cssText += '-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d; '
+                + ' position:absolute;-webkit-transform-origin: 50% bottom 0px;';
+        }
+
+        //反向
+        function reverse(){  console.log(2)
+            dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
+            if (i === 1) {//正要被显示的页面
+                dom.style.zIndex = scale - absoluteOffset;
+            } else if(i < 1) {
+                dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
+                dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
+            }
+            dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
+                + ' position:absolute;-webkit-transform-origin: 50% top 0px;';
+        }
+
+        if (offset > 0) {
+            reverse();
+            if(i < 1){
+                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+            }
+        }else {
+            if(opposite){
+                reverse();
+                if(i == 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }else if(i < 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+                }else{
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }
+            }else{
+                forward();
+                if(i == 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }else if(i > 1){
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+                }else{
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
+                }
+            }
+        }
     },
 };
 

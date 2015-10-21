@@ -1167,7 +1167,7 @@ class iSliderPrototype extends iSliderCore {
         } else {
 
             //这一这里的代码，与动画效果挂钩
-            if ((this.isVertical && (animateType === 'rotate' || animateType === 'flip') || animateType === 'kpfy') ^ (n > 0)) {
+            if ((this.isVertical && (animateType === 'rotate' || animateType === 'flip') ) ^ (n > 0)) {
                 els.push(els.shift());
                 headEl = els[2];
                 tailEl = els[0];

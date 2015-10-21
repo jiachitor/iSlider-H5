@@ -15,8 +15,8 @@ var notify = require('gulp-notify');
 var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 
-var demo_config_list = ['dom/example','dom/default','dom/default2','dom/demo_with_navigator','dom/slide_with_btn','dom/vertical_slide','dom/with-plugins-dot-button','dom/with-plugin-zoom','picture/default','picture/picture_with_button','picture/picture_with_dots','picture/zoom','picture/card','effect/card','effect/depth','effect/fade','effect/flip','effect/flow','effect/rotate','effect/jyxs','effect/kpfy','effect/phyc','effect/yrks','effect/sxhd','effect/zxfd'];
-var demo_config = ['effect/kpfy'];
+var demo_config_list = ['dom/example','dom/default','dom/default2','dom/demo_with_navigator','dom/slide_with_btn','dom/vertical_slide','dom/with-plugins-dot-button','dom/with-plugin-zoom','picture/default','picture/picture_with_button','picture/picture_with_dots','picture/zoom','picture/card','effect/card','effect/depth','effect/fade','effect/flip','effect/flow','effect/rotate','effect/jyxs','effect/kpfy','effect/jhfy','effect/phyc','effect/yrks','effect/sxhd','effect/zxfd'];
+var demo_config = ['effect/jhfy'];
 
 var b = watchify(browserify(assign({}, watchify.args, {
     cache: {}, // required for watchify
