@@ -342,12 +342,23 @@ let extendAnimation = {
     //卡片翻页
     'kpfy': function (dom, axis, scale, i, offset, opposite) {
         let absoluteOffset = Math.abs(offset);
-        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        let rotateDirect, direction, forwardMoreCssText, reverseMoreCssText;
+        if(axis === 'X'){
+            rotateDirect = 'Y';
+            direction = 1;
+            forwardMoreCssText = '-webkit-transform-origin: right 50% 0px;';
+            reverseMoreCssText = '-webkit-transform-origin: left 50% 0px;';
+        }else{
+            rotateDirect = 'X';
+            direction = -1;
+            forwardMoreCssText = '-webkit-transform-origin: 50% bottom 0px;';
+            reverseMoreCssText = '-webkit-transform-origin: 50% top 0px;';
+        }
 
         this.wrap.style.webkitPerspective = scale * 4;
 
         //正向
-        function forward(){ console.log(1)
+        function forward(){
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.style.zIndex = scale - absoluteOffset;
@@ -355,11 +366,11 @@ let extendAnimation = {
                 dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
             }
             dom.style.cssText += '-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d; '
-                + ' position:absolute;-webkit-transform-origin: 50% bottom 0px;';
+                + ' position:absolute;' + forwardMoreCssText;
         }
 
         //反向
-        function reverse(){  console.log(2)
+        function reverse(){
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
             if (i === 1) {//正要被显示的页面
                 dom.style.zIndex = scale - absoluteOffset;
@@ -368,13 +379,13 @@ let extendAnimation = {
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
             }
             dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
-                + ' position:absolute;-webkit-transform-origin: 50% top 0px;';
+                + ' position:absolute;' + reverseMoreCssText;
         }
 
         if (offset > 0) {
             reverse();
             if(i < 1){
-                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( direction * 90 * (offset / scale + i - 1)) + 'deg)';
             }
         }else {
             if(opposite){
@@ -382,7 +393,7 @@ let extendAnimation = {
                 if(i == 1){
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }else if(i < 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( direction * 90 * (offset / scale + i - 1)) + 'deg)';
                 }else{
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }
@@ -391,67 +402,7 @@ let extendAnimation = {
                 if(i == 1){
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }else if(i > 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
-                }else{
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
-                }
-            }
-        }
-    },
-
-    //交换翻页
-    'jhfy': function (dom, axis, scale, i, offset, opposite) {
-        let absoluteOffset = Math.abs(offset);
-        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
-
-        this.wrap.style.webkitPerspective = scale * 4;
-
-        //正向
-        function forward(){ console.log(1)
-            dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
-            if (i === 1) {
-                dom.style.zIndex = scale - absoluteOffset;
-            } else {
-                dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
-            }
-            dom.style.cssText += '-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d; '
-                + ' position:absolute;-webkit-transform-origin: 50% bottom 0px;';
-        }
-
-        //反向
-        function reverse(){  console.log(2)
-            dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
-            if (i === 1) {//正要被显示的页面
-                dom.style.zIndex = scale - absoluteOffset;
-            } else if(i < 1) {
-                dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
-                dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
-            }
-            dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
-                + ' position:absolute;-webkit-transform-origin: 50% top 0px;';
-        }
-
-        if (offset > 0) {
-            reverse();
-            if(i < 1){
-                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
-            }
-        }else {
-            if(opposite){
-                reverse();
-                if(i == 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
-                }else if(i < 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
-                }else{
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
-                }
-            }else{
-                forward();
-                if(i == 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
-                }else if(i > 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( -90 * (offset / scale + i - 1)) + 'deg)';
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( direction * 90 * (offset / scale + i - 1)) + 'deg)';
                 }else{
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }
