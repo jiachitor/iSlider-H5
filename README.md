@@ -20,10 +20,10 @@ or
 ````
 var iSlider = require('islider-h5'); 
 ````
-说明：因为使用ES6 开发，所以目前只能ES6 中使用。如果需要使用script 引入的方式使用，请使用 islider 原版。
+说明：因为此版本使用ES6 开发，所以目前只能在ES6环境中使用。如果需要以script 引入的方式使用，请使用 islider 官方原版。
 
 ##翻页效果
-目前的翻页效果为"default","rotate","flip","depth","flow","card"，"fade","yrks","zxfd","jyxs","phyc","sxhd","kpfy"。
+目前的翻页效果为"default","rotate","flip","depth","flow","card"，"fade","yrks","zxfd","jyxs","phyc","sxhd","kpfy"。如有需要，你可以自己填充动画库。
 
 
 ##License (MIT)
