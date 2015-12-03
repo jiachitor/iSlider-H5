@@ -15,7 +15,33 @@ var notify = require('gulp-notify');
 var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 
-var demo_config_list = ['dom/example','dom/default','dom/default2','dom/demo_with_navigator','dom/slide_with_btn','dom/vertical_slide','dom/with-plugins-dot-button','dom/with-plugin-zoom','picture/default','picture/picture_with_button','picture/picture_with_dots','picture/zoom','picture/card','effect/card','effect/depth','effect/fade','effect/flip','effect/flow','effect/rotate','effect/jyxs','effect/kpfy','effect/phyc','effect/yrks','effect/sxhd','effect/zxfd'];
+var demo_config_list = [
+    'dom/example',
+    'dom/default',
+    'dom/default2',
+    'dom/demo_with_navigator',
+    'dom/slide_with_btn',
+    'dom/vertical_slide',
+    'dom/with-plugins-dot-button',
+    'dom/with-plugin-zoom',
+    'picture/default',
+    'picture/picture_with_button',
+    'picture/picture_with_dots',
+    'picture/zoom',
+    'picture/card',
+    'effect/card',
+    'effect/depth',
+    'effect/fade',
+    'effect/flip',
+    'effect/flow',
+    'effect/rotate',
+    'effect/jyxs',
+    'effect/kpfy',
+    'effect/phyc',
+    'effect/yrks',
+    'effect/sxhd',
+    'effect/zxfd'
+];
 var demo_config = ['effect/kpfy'];
 
 var b = watchify(browserify(assign({}, watchify.args, {
@@ -26,7 +52,9 @@ var b = watchify(browserify(assign({}, watchify.args, {
 })));
 
 // 在这里加入变换操作
-b.transform(babelify.configure({stage: 1}));
+b.transform(babelify.configure({
+    stage: 1
+}));
 
 gulp.task('browserifyTask', bundle); // 这样你就可以运行 `gulp browserifyTask` 来编译文件了
 b.on('update', bundle); // on any dep update, runs the bundler
@@ -66,30 +94,34 @@ function sassTask() {
 }
 
 
-function browserifyTask(){
+function browserifyTask() {
     for (var conf of demo_config) {
         browserifyJsFn(conf);
     }
 }
 
-function browserifyJsFn(conf){
-    browserify("./demo/"+ conf +"/main.js", { debug: true })
+function browserifyJsFn(conf) {
+    browserify("./demo/" + conf + "/main.js", {
+            debug: true
+        })
         .transform(babelify)
         .bundle()
-        .on("error", function (err) { console.log("Error : " + err.message); })
-        .pipe(fs.createWriteStream("./demo/"+ conf +"/bundle.js"));
+        .on("error", function(err) {
+            console.log("Error : " + err.message);
+        })
+        .pipe(fs.createWriteStream("./demo/" + conf + "/bundle.js"));
 }
 
 function watchTask() {
-    gulp.watch(['demo/*/*/main.js'], function () {
+    gulp.watch(['demo/*/*/main.js'], function() {
         browserifyTask();
     });
 
-    gulp.watch(['src/**/*.js'], function () {
+    gulp.watch(['src/**/*.js'], function() {
         browserifyTask();
     });
 
-    gulp.watch(['src/*.scss'], function () {
+    gulp.watch(['src/*.scss'], function() {
         sassTask();
     });
 }
@@ -97,7 +129,5 @@ function watchTask() {
 gulp.task('watch', gulp.series(
     'browserifyTask',
     browserSyncTask,
-    gulp.parallel(sassTask,watchTask,browserifyTask)
+    gulp.parallel(sassTask, watchTask, browserifyTask)
 ));
-
-
