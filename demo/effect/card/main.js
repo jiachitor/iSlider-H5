@@ -1,5 +1,4 @@
 import '../../../src/islider.js';
-//import '../../../src/ext/islider_animate.js';
 import '../../../src/plugins/islider_button.js';
 import '../../../src/plugins/islider_dot.js';
 import '../../../src/plugins/islider_zoompic.js';

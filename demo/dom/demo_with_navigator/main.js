@@ -1,4 +1,7 @@
-import iSlider from '../../../src/islider.js';
+import '../../../src/islider.js';
+import '../../../src/plugins/islider_button.js';
+import '../../../src/plugins/islider_dot.js';
+import '../../../src/plugins/islider_zoompic.js';
 
 var list = [{
     'content': '<div class="page"><h1>Home</h1><h2>This is home page</h2><p>home is pretty awsome, home is pretty awsome, home is pretty awsome.</p><p>home is pretty awsome.home is pretty awsome, home is pretty awsome. home is pretty awsome home is pretty awsome.</p></div>'

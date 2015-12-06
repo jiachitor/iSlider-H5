@@ -26,5 +26,9 @@ var iSlider = require('islider-h5');
 目前的翻页效果为"default","rotate","flip","depth","flow","card"，"fade","yrks","zxfd","jyxs","phyc","sxhd","kpfy"。如有需要，你可以自己填充动画库。
 
 
+### ES5 版 islider 
+build 目录中存放了对应的ES5代码，使用方法可以参考官网[iSlider](https://github.com/be-fe/iSlider).
+
+
 ##License (MIT)
 

@@ -42,7 +42,7 @@ var demo_config_list = [
     'effect/sxhd',
     'effect/zxfd'
 ];
-var demo_config = ['effect/card'];
+var demo_config = ['dom/with-plugin-zoom'];
 
 var b = watchify(browserify(assign({}, watchify.args, {
     cache: {}, // required for watchify
