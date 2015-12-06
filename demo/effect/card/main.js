@@ -1,4 +1,8 @@
-import iSlider from '../../../src/islider.js';
+import '../../../src/islider.js';
+//import '../../../src/ext/islider_animate.js';
+import '../../../src/plugins/islider_button.js';
+import '../../../src/plugins/islider_dot.js';
+import '../../../src/plugins/islider_zoompic.js';
 
 var list = [
     // picture
@@ -44,11 +48,9 @@ var S = new iSlider({
     isOverspread: 1,
     animateTime: 800,
     animateType: 'card',
-    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
+    plugins: [['zoompic', {zoomFactor: 2}]],
 });
 
 
-
-
-
+console.log(S)
 

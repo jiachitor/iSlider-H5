@@ -42,7 +42,7 @@ var demo_config_list = [
     'effect/sxhd',
     'effect/zxfd'
 ];
-var demo_config = ['effect/kpfy'];
+var demo_config = ['effect/card'];
 
 var b = watchify(browserify(assign({}, watchify.args, {
     cache: {}, // required for watchify
@@ -84,7 +84,7 @@ function browserSyncTask(callback) {
 function sassTask() {
     // Serve files from the root of this project
     gulp.src(['src/*.scss'])
-        .pipe(sass())
+        .pipe(sass({sourcemap: true}))
         .on('error', gutil.log) // ‘⁄’‚¿Ô≤∂◊Ω±‡“Î¥ÌŒÛ
         .pipe(rename('islider.css'))
         .pipe(minifycss())

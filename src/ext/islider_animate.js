@@ -12,8 +12,10 @@
 //opposite 判断是否在执行 向下或向左的逆方向滑动
 * */
 
-let extendAnimation = {
-    'rotate': function (dom, axis, scale, i, offset) {
+//import iSlider from '../islider_core.js';
+
+export default {
+    'rotate': function(dom, axis, scale, i, offset) {
         let rotateDirect = (axis === 'X') ? 'Y' : 'X';
         let absoluteOffset = Math.abs(offset);
         let bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
@@ -30,13 +32,11 @@ let extendAnimation = {
             dom.style.zIndex = (offset > 0) ? (1 - i) * absoluteOffset : (i - 1) * absoluteOffset;
         }
 
-        dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
-            + 'background-color:' + bdColor + '; position:absolute;';
-        dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + 90 * (offset / scale + i - 1) + 'deg) translateZ('
-            + (0.888 * scale / 2) + 'px) scale(0.888)';
+        dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; ' + 'background-color:' + bdColor + '; position:absolute;';
+        dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + 90 * (offset / scale + i - 1) + 'deg) translateZ(' + (0.888 * scale / 2) + 'px) scale(0.888)';
     },
 
-    'flip': function (dom, axis, scale, i, offset) {
+    'flip': function(dom, axis, scale, i, offset) {
         let rotateDirect = (axis === 'X') ? 'Y' : 'X';
         let bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
         if (this.isVertical) {
@@ -51,19 +51,17 @@ let extendAnimation = {
         }
 
         dom.style.cssText += 'position:absolute; -webkit-backface-visibility:hidden; background-color:' + bdColor + ';';
-        dom.style.webkitTransform = 'translateZ(' + (scale / 2) + 'px) rotate' + rotateDirect
-            + '(' + 180 * (offset / scale + i - 1) + 'deg) scale(0.875)';
+        dom.style.webkitTransform = 'translateZ(' + (scale / 2) + 'px) rotate' + rotateDirect + '(' + 180 * (offset / scale + i - 1) + 'deg) scale(0.875)';
     },
 
-    'depth': function (dom, axis, scale, i, offset) {
+    'depth': function(dom, axis, scale, i, offset) {
         let zoomScale = (4 - Math.abs(i - 1)) * 0.18;
         this.wrap.style.webkitPerspective = scale * 4;
         dom.style.zIndex = (i === 1) ? 100 : (offset > 0) ? (1 - i) : (i - 1);
-        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate'
-            + axis + '(' + (offset + 1.3 * scale * (i - 1)) + 'px)';
+        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis + '(' + (offset + 1.3 * scale * (i - 1)) + 'px)';
     },
 
-    'flow': function (dom, axis, scale, i, offset) {
+    'flow': function(dom, axis, scale, i, offset) {
         let absoluteOffset = Math.abs(offset);
         let rotateDirect = (axis === 'X') ? 'Y' : 'X';
         let directAmend = (axis === 'X') ? 1 : -1;
@@ -77,12 +75,10 @@ let extendAnimation = {
             dom.style.zIndex = (offset > 0) ? (1 - i) * absoluteOffset : (i - 1) * absoluteOffset;
         }
 
-        dom.style.webkitTransform = 'scale(0.7, 0.7) translateZ(' + (offsetRatio * 150 - 150) * Math.abs(i - 1) + 'px)'
-            + 'translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)'
-            + 'rotate' + rotateDirect + '(' + directAmend * (30 - offsetRatio * 30) * (1 - i) + 'deg)';
+        dom.style.webkitTransform = 'scale(0.7, 0.7) translateZ(' + (offsetRatio * 150 - 150) * Math.abs(i - 1) + 'px)' + 'translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)' + 'rotate' + rotateDirect + '(' + directAmend * (30 - offsetRatio * 30) * (1 - i) + 'deg)';
     },
 
-    'card': function (dom, axis, scale, i, offset) {
+    'card': function(dom, axis, scale, i, offset) {
         let absoluteOffset = Math.abs(offset);
 
         if (i === 1) {
@@ -93,21 +89,19 @@ let extendAnimation = {
         }
 
         if (dom.cur && dom.cur !== i) {
-            setTimeout(function () {
+            setTimeout(function() {
                 dom.cur = null;
             }, 300);
         }
 
         let zoomScale = (dom.cur) ? 1 - 0.2 * Math.abs(i - 1) - Math.abs(0.2 * offset / scale).toFixed(6) : 1;
-        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis
-            + '(' + ((1 + Math.abs(i - 1) * 0.2) * offset + scale * (i - 1)) + 'px)';
+        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis + '(' + ((1 + Math.abs(i - 1) * 0.2) * offset + scale * (i - 1)) + 'px)';
     },
 
     'fade': function fade(dom, axis, scale, i, offset) {
         if (offset > 0) {
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
-        }
-        else {
+        } else {
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
         }
         offset = Math.abs(offset);
@@ -123,18 +117,18 @@ let extendAnimation = {
         dom.cur = 2;
 
         //正向
-        function forward(){
+        function forward() {
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.cur = 1;
                 dom.style.opacity = 1 + (offset / scale);
             } else {
-                dom.style.opacity = - offset / scale;
+                dom.style.opacity = -offset / scale;
             }
         }
 
         //反向
-        function reverse(){
+        function reverse() {
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.cur = 1;
@@ -146,10 +140,10 @@ let extendAnimation = {
 
         if (offset > 0) {
             reverse();
-        }else {
-            if(opposite){
+        } else {
+            if (opposite) {
                 reverse();
-            }else{
+            } else {
                 forward();
             }
         }
@@ -165,32 +159,32 @@ let extendAnimation = {
         dom.cur = 0.1;
 
         //正向
-        function forward(){
-            if(i == 1){
+        function forward() {
+            if (i == 1) {
                 dom.cur = 1;
                 dom.style.visibility = 'visible';
                 dom.style.zIndex = scale - absoluteOffset;
-            }else if(i < 1){
+            } else if (i < 1) {
                 dom.cur = 1;
                 dom.style.visibility = 'visible';
                 dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
-            }else{
+            } else {
                 dom.style.visibility = 'hidden';
                 dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
             }
         }
 
         //反向
-        function reverse(){
-            if(i == 1){
+        function reverse() {
+            if (i == 1) {
                 dom.cur = 1;
                 dom.style.visibility = 'visible';
                 dom.style.zIndex = scale - absoluteOffset;
-            }else if(i > 1){
+            } else if (i > 1) {
                 dom.cur = 1;
                 dom.style.visibility = 'hidden';
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
-            }else{
+            } else {
                 dom.style.visibility = 'hidden';
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
             }
@@ -198,10 +192,10 @@ let extendAnimation = {
 
         if (offset > 0) {
             reverse();
-        }else {
-            if(opposite){
+        } else {
+            if (opposite) {
                 reverse();
-            }else{
+            } else {
                 forward();
             }
         }
@@ -215,27 +209,27 @@ let extendAnimation = {
         let absoluteOffset = Math.abs(offset);
 
         //正向
-        function forward(){
+        function forward() {
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.style.opacity = 1 - (offset / scale);
                 dom.style.zIndex = scale - absoluteOffset;
             } else {
-                dom.style.opacity = - offset / scale;
+                dom.style.opacity = -offset / scale;
                 dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
             }
         }
 
         //反向
-        function reverse(){
+        function reverse() {
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
-            if (i === 1) {//正要被显示的页面
+            if (i === 1) { //正要被显示的页面
                 dom.style.opacity = 1 + (offset / scale);
                 dom.style.zIndex = scale - absoluteOffset;
-            } else if(i < 1) {
+            } else if (i < 1) {
                 dom.style.opacity = offset / scale;
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
-            } else{
+            } else {
                 dom.style.opacity = 1 - (offset / scale);
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
             }
@@ -243,21 +237,21 @@ let extendAnimation = {
 
         if (offset > 0) {
             reverse();
-        }else {
-            if(opposite){
+        } else {
+            if (opposite) {
                 reverse();
-                if(i == 1){
+                if (i == 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
-                }else if(i > 1){
+                } else if (i > 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
-                }else{
+                } else {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
                 }
-            }else{
+            } else {
                 forward();
-                if(i < 1){
+                if (i < 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
-                }else{
+                } else {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
                 }
             }
@@ -269,7 +263,7 @@ let extendAnimation = {
         let absoluteOffset = Math.abs(offset);
 
         //正向
-        function forward(){
+        function forward() {
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.style.zIndex = scale - absoluteOffset;
@@ -279,11 +273,11 @@ let extendAnimation = {
         }
 
         //反向
-        function reverse(){
+        function reverse() {
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
-            if (i === 1) {//正要被显示的页面
+            if (i === 1) { //正要被显示的页面
                 dom.style.zIndex = scale - absoluteOffset;
-            } else if(i < 1) {
+            } else if (i < 1) {
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
             }
@@ -291,26 +285,26 @@ let extendAnimation = {
 
         if (offset > 0) {
             reverse();
-            if(i < 1){
+            if (i < 1) {
                 dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
             }
-        }else {
-            if(opposite){
+        } else {
+            if (opposite) {
                 reverse();
-                if(i == 1){
+                if (i == 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
-                }else if(i < 1){
+                } else if (i < 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
-                }else{
+                } else {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
                 }
-            }else{
+            } else {
                 forward();
-                if(i == 1){
+                if (i == 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
-                }else if(i > 1){
+                } else if (i > 1) {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
-                }else{
+                } else {
                     dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(0px)';
                 }
             }
@@ -318,7 +312,7 @@ let extendAnimation = {
     },
 
     //上下滑动
-    'sxhd': function (dom, axis, scale, i, offset, opposite) {
+    'sxhd': function(dom, axis, scale, i, offset, opposite) {
         let absoluteOffset = Math.abs(offset);
 
         if (i === 1) {
@@ -329,26 +323,25 @@ let extendAnimation = {
         }
 
         if (dom.cur && dom.cur !== i) {
-            setTimeout(function () {
+            setTimeout(function() {
                 dom.cur = null;
             }, 300);
         }
 
         let zoomScale = (dom.cur) ? 1 - 0.8 * Math.abs(i - 1) - Math.abs(0.8 * offset / scale).toFixed(6) : 1;
-        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis
-            + '(' + ((1 + Math.abs(i - 1) * 0.2) * offset + scale * (i - 1)) + 'px)';
+        dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis + '(' + ((1 + Math.abs(i - 1) * 0.2) * offset + scale * (i - 1)) + 'px)';
     },
 
     //卡片翻页
-    'kpfy': function (dom, axis, scale, i, offset, opposite) {
+    'kpfy': function(dom, axis, scale, i, offset, opposite) {
         let absoluteOffset = Math.abs(offset);
         let rotateDirect, direction, forwardMoreCssText, reverseMoreCssText;
-        if(axis === 'X'){
+        if (axis === 'X') {
             rotateDirect = 'Y';
             direction = 1;
             forwardMoreCssText = '-webkit-transform-origin: right 50% 0px;';
             reverseMoreCssText = '-webkit-transform-origin: left 50% 0px;';
-        }else{
+        } else {
             rotateDirect = 'X';
             direction = -1;
             forwardMoreCssText = '-webkit-transform-origin: 50% bottom 0px;';
@@ -358,58 +351,53 @@ let extendAnimation = {
         this.wrap.style.webkitPerspective = scale * 4;
 
         //正向
-        function forward(){
+        function forward() {
             dom.style.visibility = (i < 1) ? 'hidden' : 'visible';
             if (i === 1) {
                 dom.style.zIndex = scale - absoluteOffset;
             } else {
                 dom.style.zIndex = (i - 1) * absoluteOffset * 1000;
             }
-            dom.style.cssText += '-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d; '
-                + ' position:absolute;' + forwardMoreCssText;
+            dom.style.cssText += '-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d; ' + ' position:absolute;' + forwardMoreCssText;
         }
 
         //反向
-        function reverse(){
+        function reverse() {
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
-            if (i === 1) {//正要被显示的页面
+            if (i === 1) { //正要被显示的页面
                 dom.style.zIndex = scale - absoluteOffset;
-            } else if(i < 1) {
+            } else if (i < 1) {
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
                 dom.style.zIndex = (1 - i) * absoluteOffset * 1000;
             }
-            dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; '
-                + ' position:absolute;' + reverseMoreCssText;
+            dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; ' + ' position:absolute;' + reverseMoreCssText;
         }
 
         if (offset > 0) {
             reverse();
-            if(i < 1){
-                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( direction * 90 * (offset / scale + i - 1)) + 'deg)';
+            if (i < 1) {
+                dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + (direction * 90 * (offset / scale + i - 1)) + 'deg)';
             }
-        }else {
-            if(opposite){
+        } else {
+            if (opposite) {
                 reverse();
-                if(i == 1){
+                if (i == 1) {
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
-                }else if(i < 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( direction * 90 * (offset / scale + i - 1)) + 'deg)';
-                }else{
+                } else if (i < 1) {
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + (direction * 90 * (offset / scale + i - 1)) + 'deg)';
+                } else {
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }
-            }else{
+            } else {
                 forward();
-                if(i == 1){
+                if (i == 1) {
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
-                }else if(i > 1){
-                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + ( direction * 90 * (offset / scale + i - 1)) + 'deg)';
-                }else{
+                } else if (i > 1) {
+                    dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + (direction * 90 * (offset / scale + i - 1)) + 'deg)';
+                } else {
                     dom.style.webkitTransform = 'rotate' + rotateDirect + '(0deg) ';
                 }
             }
         }
     },
-};
-
-
-module.exports = extendAnimation;
+}
