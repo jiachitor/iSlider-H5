@@ -25,8 +25,10 @@ let islider = new iSlider({
     plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
 });
 
-
-
+islider.fire('initialize');
+islider._renderWrapper();
+islider._initPlugins();
+islider._bindHandler();
 
 
 

@@ -97,7 +97,7 @@ function isUrl(url) {
  */
 class iSlider {
     //ES6中新型构造器
-    constructor() {
+    constructor(opts) {
 
         let args = Array.prototype.slice.call(arguments, 0, 3);
 
@@ -105,7 +105,7 @@ class iSlider {
             throw new Error('Parameters required!');
         }
 
-        let opts = Object.prototype.toString.call(args.slice(-1)[0]) === '[object Object]' ? args.pop() : {};
+        //let opts = Object.prototype.toString.call(args.slice(-1)[0]) === '[object Object]' ? args.pop() : {};
 
         switch (args.length) {
             case 2:
@@ -192,20 +192,11 @@ class iSlider {
             }
         };
 
-        console.log(isliderAnimate)
-
         // 扩展动画
         this.extend(this._animateFuncs, isliderAnimate);
 
-        console.log(this._animateFuncs)
-
         this._transitionEndEvent();
         this._setting();
-
-        this.fire('initialize');
-        this._renderWrapper();
-        this._initPlugins();
-        this._bindHandler();
     }
 
     /**
@@ -457,8 +448,6 @@ class iSlider {
          * @type {string}
          * @private
          */
-        console.log(opts.animateType)
-        console.log(opts.animateType in this._animateFuncs)
         this.animateType = opts.animateType in this._animateFuncs ? opts.animateType : 'default';
 
         /**

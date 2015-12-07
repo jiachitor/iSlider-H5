@@ -10,7 +10,6 @@ class iSlider_D extends iSlider {
     constructor(...opts) {
         //直接调用父类构造器进行初始化
         super(...opts);
-
         this && this.regPlugin('dot', function(opts) {
             let HANDLE = this;
             if (!HANDLE.isVertical) {

@@ -42,7 +42,7 @@ var demo_config_list = [
     'effect/sxhd',
     'effect/zxfd'
 ];
-var demo_config = ['dom/with-plugin-zoom'];
+var demo_config = ['picture/picture_with_dots'];
 
 var b = watchify(browserify(assign({}, watchify.args, {
     cache: {}, // required for watchify

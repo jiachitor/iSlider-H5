@@ -24,7 +24,10 @@ let	islider = new iSlider({
 });
 
 
-
+islider.fire('initialize');
+islider._renderWrapper();
+islider._initPlugins();
+islider._bindHandler();
 
 
 

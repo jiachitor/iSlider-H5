@@ -43,6 +43,4 @@ class iSlider_B extends iSlider {
     }
 }
 
-
-
 window['iSlider'] = iSlider_B;
