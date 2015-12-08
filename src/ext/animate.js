@@ -12,13 +12,18 @@
 //opposite 判断是否在执行 向下或向左的逆方向滑动
 * */
 
-//import iSlider from '../islider_core.js';
+'use strict';
 
-export default {
-    'rotate': function(dom, axis, scale, i, offset) {
-        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
-        let absoluteOffset = Math.abs(offset);
-        let bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
+import iSlider from '../islider.js';
+
+'use strict';
+
+iSlider && iSlider.extend(iSlider._animateFuncs, {
+    // rotate
+    'rotate': function rotate(dom, axis, scale, i, offset) {
+        var rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        var absoluteOffset = Math.abs(offset);
+        var bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
 
         if (this.isVertical) {
             offset = -offset;
@@ -35,10 +40,10 @@ export default {
         dom.style.cssText += '-webkit-backface-visibility:hidden; -webkit-transform-style:preserve-3d; ' + 'background-color:' + bdColor + '; position:absolute;';
         dom.style.webkitTransform = 'rotate' + rotateDirect + '(' + 90 * (offset / scale + i - 1) + 'deg) translateZ(' + (0.888 * scale / 2) + 'px) scale(0.888)';
     },
-
-    'flip': function(dom, axis, scale, i, offset) {
-        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
-        let bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
+    // flip
+    'flip': function flip(dom, axis, scale, i, offset) {
+        var rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        var bdColor = window.getComputedStyle(this.wrap.parentNode, null).backgroundColor;
         if (this.isVertical) {
             offset = -offset;
         }
@@ -53,19 +58,17 @@ export default {
         dom.style.cssText += 'position:absolute; -webkit-backface-visibility:hidden; background-color:' + bdColor + ';';
         dom.style.webkitTransform = 'translateZ(' + (scale / 2) + 'px) rotate' + rotateDirect + '(' + 180 * (offset / scale + i - 1) + 'deg) scale(0.875)';
     },
-
-    'depth': function(dom, axis, scale, i, offset) {
-        let zoomScale = (4 - Math.abs(i - 1)) * 0.18;
+    'depth': function depth(dom, axis, scale, i, offset) {
+        var zoomScale = (4 - Math.abs(i - 1)) * 0.18;
         this.wrap.style.webkitPerspective = scale * 4;
         dom.style.zIndex = (i === 1) ? 100 : (offset > 0) ? (1 - i) : (i - 1);
         dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis + '(' + (offset + 1.3 * scale * (i - 1)) + 'px)';
     },
-
-    'flow': function(dom, axis, scale, i, offset) {
-        let absoluteOffset = Math.abs(offset);
-        let rotateDirect = (axis === 'X') ? 'Y' : 'X';
-        let directAmend = (axis === 'X') ? 1 : -1;
-        let offsetRatio = Math.abs(offset / scale);
+    'flow': function flow(dom, axis, scale, i, offset) {
+        var absoluteOffset = Math.abs(offset);
+        var rotateDirect = (axis === 'X') ? 'Y' : 'X';
+        var directAmend = (axis === 'X') ? 1 : -1;
+        var offsetRatio = Math.abs(offset / scale);
 
         this.wrap.style.webkitPerspective = scale * 4;
 
@@ -77,9 +80,8 @@ export default {
 
         dom.style.webkitTransform = 'scale(0.7, 0.7) translateZ(' + (offsetRatio * 150 - 150) * Math.abs(i - 1) + 'px)' + 'translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)' + 'rotate' + rotateDirect + '(' + directAmend * (30 - offsetRatio * 30) * (1 - i) + 'deg)';
     },
-
-    'card': function(dom, axis, scale, i, offset) {
-        let absoluteOffset = Math.abs(offset);
+    'card': function card(dom, axis, scale, i, offset) {
+        var absoluteOffset = Math.abs(offset);
 
         if (i === 1) {
             dom.style.zIndex = scale - absoluteOffset;
@@ -93,11 +95,9 @@ export default {
                 dom.cur = null;
             }, 300);
         }
-
-        let zoomScale = (dom.cur) ? 1 - 0.2 * Math.abs(i - 1) - Math.abs(0.2 * offset / scale).toFixed(6) : 1;
+        var zoomScale = (dom.cur) ? 1 - 0.2 * Math.abs(i - 1) - Math.abs(0.2 * offset / scale).toFixed(6) : 1;
         dom.style.webkitTransform = 'scale(' + zoomScale + ', ' + zoomScale + ') translateZ(0) translate' + axis + '(' + ((1 + Math.abs(i - 1) * 0.2) * offset + scale * (i - 1)) + 'px)';
     },
-
     'fade': function fade(dom, axis, scale, i, offset) {
         if (offset > 0) {
             dom.style.visibility = (i > 1) ? 'hidden' : 'visible';
@@ -400,4 +400,4 @@ export default {
             }
         }
     },
-}
+});

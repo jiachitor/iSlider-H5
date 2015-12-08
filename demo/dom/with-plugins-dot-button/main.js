@@ -1,7 +1,9 @@
-import '../../../src/islider.js';
-import '../../../src/plugins/islider_button.js';
-import '../../../src/plugins/islider_dot.js';
-import '../../../src/plugins/islider_zoompic.js';
+'use strict';
+
+import iSlider from '../../../src/islider.js';
+import '../../../src/plugins/button.js';
+import '../../../src/plugins/dot.js';
+import '../../../src/plugins/zoompic.js';
 
 var list = [
     // picture
@@ -14,7 +16,7 @@ var list = [
     },
     // element
     {
-        content: (function () {
+        content: (function() {
             var dom = document.createElement('div');
             dom.innerHTML = 'Element';
             dom.style.cssText = 'font-size:3em;color:rgb(230, 230, 63);';
@@ -23,7 +25,7 @@ var list = [
     },
     // fragment
     {
-        content: (function () {
+        content: (function() {
             var frag = document.createDocumentFragment();
             var dom = document.createElement('div');
             dom.innerHTML = 'Fragment';
@@ -44,19 +46,17 @@ var S = new iSlider({
     isLooping: 1,
     isOverspread: 1,
     animateTime: 800, // ms
-    plugins: ['button',['zoompic', {currentScale:1,zoomFactor: 2}]],
+    plugins: ['button', ['zoompic', {
+        currentScale: 1,
+        zoomFactor: 2
+    }]],
 });
 
 S.regPlugin('dot');
 
-S.regPlugin('others', function () {
+S.regPlugin('others', function() {
     console.debug('Init Plugin "others"', arguments)
-    this.on('slideChange', function () {
+    this.on('slideChange', function() {
         alert('the plugin "others" on "slideChange"');
     });
 }, 1, 2, 3);
-
-
-
-
-

@@ -1,9 +1,9 @@
 'use strict';
 
-import '../../../src/islider.js';
-import '../../../src/plugins/islider_button.js';
-import '../../../src/plugins/islider_dot.js';
-import '../../../src/plugins/islider_zoompic.js';
+import iSlider from '../../../src/islider.js';
+import '../../../src/plugins/button.js';
+import '../../../src/plugins/dot.js';
+import '../../../src/plugins/zoompic.js';
 
 let list = [];
 for (let i = 1; i <= 3; i++)

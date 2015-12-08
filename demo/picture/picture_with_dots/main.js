@@ -1,7 +1,9 @@
-import '../../../src/islider.js';
-import '../../../src/plugins/islider_button.js';
-import '../../../src/plugins/islider_dot.js';
-import '../../../src/plugins/islider_zoompic.js';
+'use strict';
+
+import iSlider from '../../../src/islider.js';
+import '../../../src/plugins/button.js';
+import '../../../src/plugins/dot.js';
+import '../../../src/plugins/zoompic.js';
 
 let list = [{
     content: "../imgs/long/1.jpg"

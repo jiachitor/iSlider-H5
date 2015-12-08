@@ -1,7 +1,10 @@
-import '../../../src/islider.js';
-import '../../../src/plugins/islider_button.js';
-import '../../../src/plugins/islider_dot.js';
-import '../../../src/plugins/islider_zoompic.js';
+'use strict';
+
+import iSlider from '../../../src/islider.js';
+import '../../../src/ext/animate.js';
+import '../../../src/plugins/button.js';
+import '../../../src/plugins/dot.js';
+import '../../../src/plugins/zoompic.js';
 
 var list = [
     // picture
@@ -14,7 +17,7 @@ var list = [
     },
     // element
     {
-        content: (function () {
+        content: (function() {
             var dom = document.createElement('div');
             dom.innerHTML = 'Element';
             dom.style.cssText = 'font-size:3em;color:rgb(230, 230, 63);';
@@ -23,7 +26,7 @@ var list = [
     },
     // fragment
     {
-        content: (function () {
+        content: (function() {
             var frag = document.createDocumentFragment();
             var img = new Image();
             var dom = document.createElement('div');
@@ -47,11 +50,10 @@ var S = new iSlider({
     isOverspread: 1,
     animateTime: 800,
     animateType: 'rotate',
-    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
+    plugins: [
+        ['zoompic', {
+            currentScale: 1,
+            zoomFactor: 2
+        }]
+    ],
 });
-
-
-
-
-
-

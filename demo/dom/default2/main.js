@@ -1,7 +1,9 @@
-import '../../../src/islider.js';
-import '../../../src/plugins/islider_button.js';
-import '../../../src/plugins/islider_dot.js';
-import '../../../src/plugins/islider_zoompic.js';
+'use strict';
+
+import iSlider from '../../../src/islider.js';
+import '../../../src/plugins/button.js';
+import '../../../src/plugins/dot.js';
+import '../../../src/plugins/zoompic.js';
 
 let list = [
     // picture
@@ -14,7 +16,7 @@ let list = [
     },
     // element
     {
-        content: (function () {
+        content: (function() {
             let dom = document.createElement('div');
             dom.innerHTML = 'Element';
             dom.style.cssText = 'font-size:3em;color:rgb(230, 230, 63);';
@@ -23,7 +25,7 @@ let list = [
     },
     // fragment
     {
-        content: (function () {
+        content: (function() {
             let frag = document.createDocumentFragment();
             let dom = document.createElement('div');
             dom.innerHTML = 'Fragment';
@@ -44,19 +46,17 @@ let S = new iSlider({
     isLooping: 1,
     isOverspread: 1,
     animateTime: 800, // ms
-    plugins: [['zoompic', {currentScale:1,zoomFactor: 2}]],
-    onslidechanged: function (index) {
+    plugins: [
+        ['zoompic', {
+            currentScale: 1,
+            zoomFactor: 2
+        }]
+    ],
+    onslidechanged: function(index) {
         console.log('[slideChanged] change to ' + index);
     }
 });
 
-S.on('slideRestored', function (index) {
+S.on('slideRestored', function(index) {
     console.log('[slideRestored] no change, restore to ' + index);
 });
-
-
-
-
-
-
-
